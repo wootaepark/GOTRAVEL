@@ -1,0 +1,18 @@
+FROM node:20.10.0
+
+#app 디렉토리 생성
+RUN mkdir -p /app
+#docker container의 작업 디렉토리를 설정하는 명령
+WORKDIR /app
+
+
+#파일이나 디렉토리를 이미지로 복사합니다. 일반적으로 소스를 복사하는 데 사용합니다. target디렉토리가 없다면 자동으로 생성합니다, npm install 실행 디렉토리 
+COPY ./ /app  
+
+#이미지 생성 과정에서 실행할 명령어
+RUN npm install
+RUN npm install -g nodemon
+
+
+#컨테이너 실행 시 실행할 명령어
+CMD ["nodemon", "-L", "app.js"]
