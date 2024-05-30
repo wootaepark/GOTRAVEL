@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './index.css'
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes, Link, NavLink, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Home from './components/Home';
+
+
+
 
 const StyledButton = styled.button`
   color: white;
@@ -28,8 +32,8 @@ const AppContainer = styled.div`
 
 // Sample data for travel destinations
 const destinations = [
-  { id: 1, name: 'Paris', description: 'The City of Light' },
-  { id: 2, name: 'Tokyo', description: 'Vibrant Metropolis' },
+  { id: 1, name: '파리', description: 'The City of Light' },
+  { id: 2, name: '도쿄', description: 'Vibrant Metropolis' },
   { id: 3, name: 'New York', description: 'The Big Apple' },
 ];
 
@@ -45,18 +49,13 @@ function Destination() {
   );
 }
 
-function Home(){
-  return (
-    <div>
-      <h2>HomePage</h2>
-    </div>
-  );
-}
+
+
 
 function Destinations() {
   return (
     <div>
-      <h2>Destinations</h2>
+      <h2>여행 목적지</h2>
       <ul>
         {destinations.map(dest => (
           <li key={dest.id}>
@@ -92,8 +91,8 @@ function About() {
 function Contact() {
   return (
     <div>
-      <h2>Contact</h2>
-      <p>Contact us for inquiries or bookings.</p>
+      <h2>연락하기</h2>
+      <p>아래 방법들을 통해 연락해주세요</p>
       <p>email - wootaepark@korea.ac.kr</p>
       <p>phone - 010-0000-0000</p>
     </div>
@@ -103,15 +102,15 @@ function Contact() {
 function App() {
   return (
     <AppContainer>
-      <h1 id='title'>Travel Archive - Explore Destinations</h1>
+      <h1 id='title'><NavLink to="/" end className="nav-link">Go Travel</NavLink></h1>
       <nav>
         
          <div id='menu-bar'>
-          <NavLink to="/" end>Home</NavLink>
-          <NavLink to="/destinations">여행지</NavLink>
-          <NavLink to="/packages">패키지 여행</NavLink>
-          <NavLink to="/about">소개글</NavLink>
-          <NavLink to="/contact">연락처</NavLink>
+          <NavLink to="/" className="nav-link-menubar"><b>Home</b></NavLink>
+          <NavLink to="/destinations" className="nav-link-menubar"><b>여행지</b></NavLink>
+          <NavLink to="/packages" className="nav-link-menubar"><b>패키지 여행</b> </NavLink>
+          <NavLink to="/about" className="nav-link-menubar"><b>소개글</b></NavLink>
+          <NavLink to="/contact" className="nav-link-menubar"><b>연락처</b></NavLink>
           
           </div> 
           

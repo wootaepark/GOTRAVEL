@@ -12,10 +12,4 @@ code {
     monospace;
 }
 
-#title{
-  text-align: center;
-}
-#menu-bar{
-  display: flex; justify-content: flex-end;
-  text-align: center;
-}
+
