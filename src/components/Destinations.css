@@ -1,0 +1,15 @@
+.destinations {
+    padding: 20px 0;
+  }
+  
+  .destination-list {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .destination-item {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
