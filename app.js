@@ -5,6 +5,7 @@ const path = require('path');
 const axios = require('axios');
 const app = express();
 const PageRouter = require('./routes/page');
+const FlightsRouter = require('./routes/api/flights');
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({extended : false}));
 
 
 app.use('/', PageRouter);
+app.use('/', FlightsRouter);
 
 
 
