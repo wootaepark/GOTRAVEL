@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import homeImage from '../images/HomePageImage_AirPlane.jpg'
 import './Home.css';
 function Home() {
   const [showPopup, setShowPopup] = useState(false);
   const [dots, setDots] = useState(''); // 초기값은 빈 문자열
+  const [flightData, setFlightData] = useState(null);
 
   useEffect(() => {
     let intervalId;
@@ -27,12 +29,45 @@ function Home() {
     return () => clearInterval(intervalId); // 컴포넌트가 언마운트되면 인터벌을 정리합니다.
   }, [showPopup]);
 
+
+
+
   const handleInquireClick = () => {
+    const departure = document.getElementById('departure').value;
+    const arrival = document.getElementById('arrival').value;
+    
+
+    if (!departure || !arrival) {
+      alert('출발 및 도착 시간을 입력하세요.');
+      return;
+    }
+
     setShowPopup(true);
-    setTimeout(() => {
+
+    axios.get(`/api/flights`, {
+      params: {
+        departure: departure,
+        arrival: arrival
+      }
+    })
+    .then(response => {
+      if (response.data) {
+        setFlightData(response.data);
+      } else {
+        alert('조회된 데이터가 없습니다.');
+      }
       setShowPopup(false);
       setDots('');
-    }, 5000); // 5초 후에 팝업을 닫습니다.
+    })
+    .catch(error => {
+      console.error('Error fetching flight data:', error);
+      alert('데이터 조회 중 오류가 발생했습니다.');
+      setShowPopup(false);
+      setDots('');
+    });
+  };
+  const formatTime = (timeString) => {
+    return new Date(timeString).toLocaleString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' });
   };
 
   const handleCloseModal = () => {
@@ -48,6 +83,13 @@ function Home() {
         <input id='arrival' type='datetime-local'></input> 
         <button onClick={handleInquireClick}>조회</button>
       </div>
+      {flightData && (
+        <div className="flight-data">
+          <p>출발 시간: {formatTime(flightData.departure)}</p>
+          <p>도착 시간: {formatTime(flightData.arrival)}</p>
+          {/* 기타 데이터 필드 추가 */}
+        </div>
+      )}
       <img src={homeImage} alt='not found'></img>
       {showPopup && (
         <div className="modal">
@@ -57,33 +99,7 @@ function Home() {
           </div>
         </div>
       )}
-      <style jsx>{`
-        .modal {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        .modal-content {
-          background-color: white;
-          padding: 20px;
-          border-radius: 5px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .close {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          cursor: pointer;
-        }
-      `}</style>
+     
     </div>
   );
 }
