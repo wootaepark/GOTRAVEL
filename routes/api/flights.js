@@ -12,7 +12,7 @@ router.get('/api/flights', (req, res) =>{
             departure : departure,
             arrival : arrival,
        })
-    }
+    } // 임시 데이터 response
     else{   
         console.log('데이터가 없습니다.');
         res.status(204).json({
