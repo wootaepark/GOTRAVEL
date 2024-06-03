@@ -10,7 +10,7 @@ const FlightsRouter = require('./routes/api/flights');
 dotenv.config();
 
 
-app.use(morgan('dev'));
+app.use(morgan('dev')); // development 상태로 설정
 
 
 
