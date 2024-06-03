@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Route, Routes, Link, NavLink, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from './components/Home';
+import aboutPageImg from './images/air_package.png'
 
 
 
@@ -82,9 +83,12 @@ function Packages() {
 function About() {
   return (
     <div>
-      <h2>About Us</h2>
-      <p>Learn about our travel agency and our mission.</p>
+      <h2>소개글</h2>
+      <p>저희 여행 정보 획득 및 예약 통합 플랫폼 <b>GoTravel</b> 에서는 고객에게 최고의 정보를 제공하고 최저가의 항공편 및 숙박을 제공합니다.</p>
+      <img src={aboutPageImg} alt='대체 이미지'></img>
     </div>
+   
+    
   );
 }
 
