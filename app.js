@@ -12,8 +12,6 @@ dotenv.config();
 
 app.use(morgan('dev')); // development 상태로 설정
 
-
-
 app.set('port',process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname,'build')));
 app.use(express.json());

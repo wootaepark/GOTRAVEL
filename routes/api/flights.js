@@ -29,4 +29,21 @@ router.get('/api/flights', (req, res) =>{
    
 });
 
+router.get('/api/getCurrentTime',(req, res)=>{
+
+    try{
+        res.json({
+            'Current Time' : new Date() ,
+        })
+
+    }
+    catch(error){
+        console.error(error);
+        res.json(500).json({
+            info : 'Internal Server Error',
+
+        });
+    }
+});
+
 module.exports = router;
