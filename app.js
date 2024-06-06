@@ -6,22 +6,31 @@ const axios = require('axios');
 const app = express();
 const PageRouter = require('./routes/page');
 const FlightsRouter = require('./routes/api/flights');
+const {sequelize} = require('./models');
 
 dotenv.config();
-
-
 app.use(morgan('dev')); // development 상태로 설정
-
 app.set('port',process.env.PORT || 3000);
 app.use(express.static(path.join(__dirname,'build')));
 app.use(express.json());
 app.use(express.urlencoded({extended : false}));
 
 
+sequelize.sync({force : false})
+.then(()=>{
+    console.log('데이터 베이스 연결 성공');
+})
+.catch((err=>{
+    console.error(err);
+}));
+
+
+
 app.use('/', PageRouter);
 app.use('/', FlightsRouter);
 
 
+// 아래는 r-server 와의 연결 코드 (나중에 모듈화 예정)
 
 app.post('/predict', async (req, res) => {
     try {

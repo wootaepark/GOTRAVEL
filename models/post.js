@@ -1,0 +1,64 @@
+const Sequelize = require('sequelize');
+
+class Post extends Sequelize.Model{ 
+    static initiate(sequelize){
+        Post.init({
+            title : {
+                type : Sequelize.STRING(100),
+                allowNull : false,
+            }, // 게시물 제목
+
+            content : {
+                type : Sequelize.STRING(1000),
+                allowNull : true,
+
+            },// 게시물 내용
+            img : {
+                type : Sequelize.STRING(200),
+                allowNull : false,
+            },// 이미지 
+            postId : {
+                type : Sequelize.STRING(10),
+                allowNull : false,
+                unique : true,
+            }, // 게시물 고유 아이디
+            likes : {
+                type : Sequelize.INTEGER(),
+                defaultValue : 0,
+                allowNull : false,
+            } ,// 좋아요 수
+            views : {
+                type : Sequelize.INTEGER(),
+                defaultValue : 0,
+                allowNull : false,
+            }, // 조회수
+
+
+            
+
+        },
+    {
+        sequelize,
+        timestamps : true,
+        underscored : false,
+        modelName : 'Post',
+        tableName : 'posts',
+        paranoid : true,
+        charset : 'utf8mb4',
+        collate : 'utf8mb4_general_ci',
+
+    }
+        )
+    }
+
+
+
+    
+    static associate(db){
+       
+        db.Post.hasMany(db.Comment,{foreignKey : 'post_no', sourceKey :'id'});
+        db.Post.belongsTo(db.User,{foreignKey : 'poster', targetKey : 'id'});
+        
+    }
+}
+module.exports = Post;
