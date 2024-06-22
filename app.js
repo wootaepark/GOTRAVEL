@@ -18,7 +18,7 @@ app.use(express.urlencoded({extended : false}));
 
 sequelize.sync({force : false})
 .then(()=>{
-    console.log('데이터 베이스 연결 성공');
+    console.log('데이터 베이스 연결 (연결 포트 : 3306)');
 })
 .catch((err=>{
     console.error(err);
