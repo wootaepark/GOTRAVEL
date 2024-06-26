@@ -139,3 +139,4 @@ dist
 /migrations
 /Dockerfile
 /docker-compose.yml
+/yarn.lock

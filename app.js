@@ -7,6 +7,7 @@ const app = express();
 const PageRouter = require('./routes/page');
 const FlightsRouter = require('./routes/api/flights');
 const {sequelize} = require('./models');
+const jwt = require('jsonwebtoken');
 
 dotenv.config();
 app.use(morgan('dev')); // development 상태로 설정
